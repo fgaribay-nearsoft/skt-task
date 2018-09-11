@@ -1,0 +1,18 @@
+spring.mvc.view.prefix: /WEB-INF/jsp/
+spring.mvc.view.suffix: .jsp
+
+spring.rabbitmq.host: localhost
+spring.rabbitmq.port: 5672
+spring.rabbitmq.password: temprabbit
+spring.rabbitmq.username: temprabbit
+
+product.create.queue.name: product-create
+product.list.queue.name: product-list
+
+logging:
+  level:
+    org: INFO
+
+tutorial:
+  client:
+    duration: 10000
