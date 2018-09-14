@@ -10,12 +10,9 @@ spring:
     username: temprabbit
 
 product:
-  create:
-    queue:
-      name: product-create
-  list:
-    queue:
-      name: product-list
+  queues:
+    creation-name: product-create
+    list-name: product-list
 
 logging:
   level:
