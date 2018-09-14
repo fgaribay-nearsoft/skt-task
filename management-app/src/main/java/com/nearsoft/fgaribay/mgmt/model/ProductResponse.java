@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class ProductResponse {
-    String operation;
-    boolean error;
-    String errorMessage;
-    List<Product> products;
-    UUID id;
+
+    private UUID id;
+    private List<Product> products;
+    private String operation;
+    private String errorMessage;
+    private boolean error;
 
     public ProductResponse(String operation, boolean error, String errorMessage, List<Product> products, UUID id) {
         this.operation = operation;

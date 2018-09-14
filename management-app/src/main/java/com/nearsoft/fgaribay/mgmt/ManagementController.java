@@ -9,16 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/products")
 public class ManagementController {
-    private static List<Product> products = new ArrayList<>();
+
+    private BrokerConnector brokerConnector;
 
     @Autowired
-    private BrokerConnector brokerConnector;
+    public ManagementController(BrokerConnector brokerConnector) {
+        this.brokerConnector = brokerConnector;
+    }
 
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public String viewPersonList(Model model) {
