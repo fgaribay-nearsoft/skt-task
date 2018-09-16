@@ -22,6 +22,7 @@
 
     <modules>
         <module>management-app</module>
+        <module>management-microservice</module>
     </modules>
 
     <dependencyManagement>
