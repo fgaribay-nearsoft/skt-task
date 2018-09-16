@@ -1,3 +1,22 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    password: temprabbit
+    username: temprabbit
+
+# TODO: Select an adequate routing scheme and name accordingly
+product:
+  queues:
+    creation-name: product-create
+    list-name: product-list
+  exchanges:
+    creation-name: product-create
+    list-name: product-list
+  routing-keys:
+    creation-name: create
+    list-name: list
+
 logging:
   level:
     org: INFO
