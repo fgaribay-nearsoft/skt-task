@@ -53,7 +53,7 @@ public class ManagementApplicationTests {
 
     @Test
     public void testProductRetrieval() {
-        List<Product> products = connector.retrieveProductList();
+        ArrayList<Product> products = connector.retrieveProductList();
         Assert.assertEquals(products.get(0).getName(), "Keyboard");
     }
 
