@@ -8,26 +8,28 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.ArrayList;
 
 @Component
 public class BrokerConnector {
 
     private final RabbitTemplate rabbitTemplate;
 
-    private ProductProperties.Queues queueProperties;
+    private ProductProperties.Exchanges exchangeProperties;
+    private ProductProperties.RoutingKeys routingKeyProperties;
 
     @Autowired
     public BrokerConnector(RabbitTemplate rabbitTemplate, ProductProperties properties) {
         this.rabbitTemplate = rabbitTemplate;
-        this.queueProperties = properties.getQueues();
+        this.exchangeProperties = properties.getExchanges();
+        this.routingKeyProperties = properties.getRoutingKeys();
     }
 
-    public List<Product> retrieveProductList() {
+    public ArrayList<Product> retrieveProductList() {
         ProductRequest request = new ProductRequest("list", null);
         ProductResponse response =
-                (ProductResponse) rabbitTemplate.convertSendAndReceive(queueProperties.getListName(), request);
+                (ProductResponse) rabbitTemplate.convertSendAndReceive(
+                        exchangeProperties.getListName(), routingKeyProperties.getListName(), request);
 
         if (response == null) {
             throw new RuntimeException(
@@ -40,9 +42,12 @@ public class BrokerConnector {
     }
 
     public void createProduct(Product product) {
-        ProductRequest request = new ProductRequest("create", Collections.singletonList(product));
+        ArrayList<Product> products = new ArrayList<>();
+        products.add(product);
+        ProductRequest request = new ProductRequest("create", products);
         ProductResponse response =
-                (ProductResponse) rabbitTemplate.convertSendAndReceive(queueProperties.getCreationName(), request);
+                (ProductResponse) rabbitTemplate.convertSendAndReceive(
+                        exchangeProperties.getCreationName(), routingKeyProperties.getCreationName(), request);
 
         if (response == null) {
             throw new RuntimeException(

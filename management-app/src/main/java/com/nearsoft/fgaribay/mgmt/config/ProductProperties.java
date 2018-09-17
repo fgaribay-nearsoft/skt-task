@@ -12,18 +12,94 @@ import javax.validation.constraints.NotNull;
 public class ProductProperties {
 
     @NotNull
-    private Queues queues;
+    RoutingKeys routingKeys;
 
-    public Queues getQueues() {
+    @NotNull
+    private RoutingKeys queues;
+
+    @NotNull
+    private Exchanges exchanges;
+
+    public RoutingKeys getRoutingKeys() {
+        return routingKeys;
+    }
+
+    public void setRoutingKeys(RoutingKeys routingKeys) {
+        this.routingKeys = routingKeys;
+    }
+
+    public Exchanges getExchanges() {
+        return exchanges;
+    }
+
+    public void setExchanges(Exchanges exchanges) {
+        this.exchanges = exchanges;
+    }
+
+    public RoutingKeys getQueues() {
         return queues;
     }
 
-    public void setQueues(Queues queues) {
+    public void setQueues(RoutingKeys queues) {
         this.queues = queues;
     }
 
     public static class Queues {
+
+        @NotNull
         private String creationName;
+
+        @NotNull
+        private String listName;
+
+        public String getCreationName() {
+            return creationName;
+        }
+
+        public void setCreationName(String creationName) {
+            this.creationName = creationName;
+        }
+
+        public String getListName() {
+            return listName;
+        }
+
+        public void setListName(String listName) {
+            this.listName = listName;
+        }
+    }
+
+    public static class Exchanges {
+
+        @NotNull
+        private String creationName;
+
+        @NotNull
+        private String listName;
+
+        public String getCreationName() {
+            return creationName;
+        }
+
+        public void setCreationName(String creationName) {
+            this.creationName = creationName;
+        }
+
+        public String getListName() {
+            return listName;
+        }
+
+        public void setListName(String listName) {
+            this.listName = listName;
+        }
+    }
+
+    public static class RoutingKeys {
+
+        @NotNull
+        private String creationName;
+
+        @NotNull
         private String listName;
 
         public String getCreationName() {

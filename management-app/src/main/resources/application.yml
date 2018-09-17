@@ -13,6 +13,12 @@ product:
   queues:
     creation-name: product-create
     list-name: product-list
+  exchanges:
+    creation-name: product-create
+    list-name: product-list
+  routing-keys:
+    creation-name: create
+    list-name: list
 
 logging:
   level:
