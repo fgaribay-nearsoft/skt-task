@@ -23,6 +23,7 @@
     <modules>
         <module>management-app</module>
         <module>management-microservice</module>
+        <module>common</module>
     </modules>
 
     <dependencyManagement>
