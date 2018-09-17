@@ -8,7 +8,7 @@
 <body>
 <h3>Create product</h3>
 <form:form method="POST"
-           action="/products" modelAttribute="product">
+           action="/products/create" modelAttribute="product">
     <table>
         <tr>
             <td><form:label path="name">Name</form:label></td>

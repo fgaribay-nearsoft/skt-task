@@ -34,8 +34,8 @@ public class ManagementController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String submit(@Valid @ModelAttribute("product") Product product) {
+    public String submit(@Valid @ModelAttribute("product") Product product, Model model) {
         brokerConnector.createProduct(product);
-        return "listProducts";
+        return viewPersonList(model);
     }
 }
