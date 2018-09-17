@@ -1,6 +1,12 @@
 package com.nearsoft.fgaribay.mgmt.model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
+    public void setId(long id) {
+        this.id = id;
+    }
+
     private long id;
     private String name;
     private String description;
@@ -9,6 +15,12 @@ public class Product {
     }
 
     public Product(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public Product(long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
