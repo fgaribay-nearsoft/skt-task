@@ -1,26 +1,9 @@
 spring:
-  rabbitmq:
-    host: localhost
-    port: 5672
-    password: temprabbit
-    username: temprabbit
   datasource:
     url: jdbc:mysql://localhost/skt
     username: root
     password: tempsqlpass
     driver-class-name: com.mysql.jdbc.Driver
-
-# TODO: Select an adequate routing scheme and name accordingly
-product:
-  queues:
-    creation-name: product-create
-    list-name: product-list
-  exchanges:
-    creation-name: product-create
-    list-name: product-list
-  routing-keys:
-    creation-name: create
-    list-name: list
 
 logging:
   level:

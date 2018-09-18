@@ -1,4 +1,4 @@
-package com.nearsoft.fgaribay.mgmt.microservice.config;
+package com.nearsoft.fgaribay.mgmt.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

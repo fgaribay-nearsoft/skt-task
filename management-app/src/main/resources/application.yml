@@ -3,22 +3,6 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-  rabbitmq:
-    host: localhost
-    port: 5672
-    password: temprabbit
-    username: temprabbit
-
-product:
-  queues:
-    creation-name: product-create
-    list-name: product-list
-  exchanges:
-    creation-name: product-create
-    list-name: product-list
-  routing-keys:
-    creation-name: create
-    list-name: list
 
 logging:
   level:
