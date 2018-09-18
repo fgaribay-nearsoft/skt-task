@@ -4,5 +4,6 @@ import java.util.List;
 
 public interface ProductRepositoryCustom {
   List getAllProducts();
-  void createProduct(Long p_id, String p_name, String p_description);
+
+  void createProduct(Long id, String name, String description);
 }
