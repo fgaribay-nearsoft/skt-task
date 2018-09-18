@@ -1,18 +1,14 @@
 package com.nearsoft.fgaribay.mgmt.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "products")
-@Data
 @NamedStoredProcedureQueries({
   @NamedStoredProcedureQuery(
       name = "getAllProducts",
       procedureName = "retrieve_products",
-      resultClasses = Product.class),
+      resultClasses = ProductEntity.class),
   @NamedStoredProcedureQuery(
       name = "createProduct",
       procedureName = "create_product",
@@ -25,7 +21,8 @@ import java.io.Serializable;
             type = String.class)
       })
 })
-public class Product implements Serializable {
+public class ProductEntity extends Product {
+
   @Id
   @Column(name = "id")
   private long id;
@@ -36,39 +33,34 @@ public class Product implements Serializable {
   @Column(name = "description")
   private String description;
 
-  public Product() {}
+  public ProductEntity() {}
 
-  public Product(String name, String description) {
-    this.name = name;
-    this.description = description;
-  }
-
-  public Product(long id, String name, String description) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-  }
-
+  @Override
   public long getId() {
     return id;
   }
 
+  @Override
   public void setId(long id) {
     this.id = id;
   }
 
+  @Override
   public String getName() {
     return name;
   }
 
+  @Override
   public void setName(String name) {
     this.name = name;
   }
 
+  @Override
   public String getDescription() {
     return description;
   }
 
+  @Override
   public void setDescription(String description) {
     this.description = description;
   }
