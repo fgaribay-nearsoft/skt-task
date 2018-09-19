@@ -1,6 +1,7 @@
 package com.nearsoft.fgaribay.mgmt;
 
-import com.nearsoft.fgaribay.mgmt.config.ProductProperties;
+import com.nearsoft.fgaribay.mgmt.config.properties.ExchangeProperties;
+import com.nearsoft.fgaribay.mgmt.config.properties.RoutingKeyProperties;
 import com.nearsoft.fgaribay.mgmt.model.Product;
 import com.nearsoft.fgaribay.mgmt.model.ProductRequest;
 import com.nearsoft.fgaribay.mgmt.model.ProductResponse;
@@ -15,14 +16,14 @@ public class BrokerConnector {
 
     private final RabbitTemplate rabbitTemplate;
 
-    private ProductProperties.Exchanges exchangeProperties;
-    private ProductProperties.RoutingKeys routingKeyProperties;
+    private ExchangeProperties exchangeProperties;
+    private RoutingKeyProperties routingKeyProperties;
 
     @Autowired
-    public BrokerConnector(RabbitTemplate rabbitTemplate, ProductProperties properties) {
+    public BrokerConnector(RabbitTemplate rabbitTemplate, ExchangeProperties exchangeProperties, RoutingKeyProperties routingKeyProperties) {
         this.rabbitTemplate = rabbitTemplate;
-        this.exchangeProperties = properties.getExchanges();
-        this.routingKeyProperties = properties.getRoutingKeys();
+        this.exchangeProperties = exchangeProperties;
+        this.routingKeyProperties = routingKeyProperties;
     }
 
     public ArrayList<Product> retrieveProductList() {

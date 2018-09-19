@@ -1,11 +1,13 @@
 package com.nearsoft.fgaribay.mgmt.config;
 
+import com.nearsoft.fgaribay.mgmt.config.properties.ExchangeProperties;
+import com.nearsoft.fgaribay.mgmt.config.properties.QueueProperties;
+import com.nearsoft.fgaribay.mgmt.config.properties.RoutingKeyProperties;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,15 +18,17 @@ import org.springframework.context.annotation.PropertySource;
 @ComponentScan("com.nearsoft.fgaribay.mgmt.config")
 public class BrokerConfig {
 
-  private ProductProperties.Queues queueProperties;
-  private ProductProperties.Exchanges exchangeProperties;
-  private ProductProperties.RoutingKeys routingKeyProperties;
+  private QueueProperties queueProperties;
+  private ExchangeProperties exchangeProperties;
+  private RoutingKeyProperties routingKeyProperties;
 
-  @Autowired
-  public BrokerConfig(ProductProperties properties) {
-    this.queueProperties = properties.getQueues();
-    this.exchangeProperties = properties.getExchanges();
-    this.routingKeyProperties = properties.getRoutingKeys();
+  public BrokerConfig(
+      QueueProperties queueProperties,
+      ExchangeProperties exchangeProperties,
+      RoutingKeyProperties routingKeyProperties) {
+    this.queueProperties = queueProperties;
+    this.exchangeProperties = exchangeProperties;
+    this.routingKeyProperties = routingKeyProperties;
   }
 
   @Bean
