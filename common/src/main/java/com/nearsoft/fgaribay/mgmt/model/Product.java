@@ -1,11 +1,16 @@
 package com.nearsoft.fgaribay.mgmt.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 import java.io.Serializable;
 
 public class Product implements Serializable {
+  @Range(min = 1, max = 65535)
   private long id;
-  private String name;
-  private String description;
+
+  @NotEmpty private String name;
+  @NotEmpty private String description;
 
   public Product() {}
 
