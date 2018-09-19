@@ -1,19 +1,19 @@
 package com.nearsoft.fgaribay.mgmt.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class ProductResponse implements Serializable {
 
   private UUID id;
-  private ArrayList<Product> products;
+  private List<Product> products;
   private String operation;
   private String errorMessage;
   private boolean error;
 
   public ProductResponse(
-      String operation, boolean error, String errorMessage, ArrayList<Product> products, UUID id) {
+          String operation, boolean error, String errorMessage, List<Product> products, UUID id) {
     this.operation = operation;
     this.error = error;
     this.errorMessage = errorMessage;
@@ -24,7 +24,7 @@ public class ProductResponse implements Serializable {
   public ProductResponse() {}
 
   public ProductResponse(
-      String operation, boolean error, String errorMessage, ArrayList<Product> products) {
+          String operation, boolean error, String errorMessage, List<Product> products) {
     this.operation = operation;
     this.error = error;
     this.errorMessage = errorMessage;
@@ -63,11 +63,11 @@ public class ProductResponse implements Serializable {
     this.errorMessage = errorMessage;
   }
 
-  public ArrayList<Product> getProducts() {
+  public List<Product> getProducts() {
     return products;
   }
 
-  public void setProducts(ArrayList<Product> products) {
+  public void setProducts(List<Product> products) {
     this.products = products;
   }
 }

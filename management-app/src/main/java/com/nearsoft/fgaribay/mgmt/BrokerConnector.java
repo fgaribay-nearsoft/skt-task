@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class BrokerConnector {
@@ -26,7 +27,7 @@ public class BrokerConnector {
         this.routingKeyProperties = routingKeyProperties;
     }
 
-    public ArrayList<Product> retrieveProductList() {
+    public List<Product> retrieveProductList() {
         ProductRequest request = new ProductRequest("list", null);
         ProductResponse response =
                 (ProductResponse) rabbitTemplate.convertSendAndReceive(
@@ -43,7 +44,7 @@ public class BrokerConnector {
     }
 
     public void createProduct(Product product) {
-        ArrayList<Product> products = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
         products.add(product);
         ProductRequest request = new ProductRequest("create", products);
         ProductResponse response =

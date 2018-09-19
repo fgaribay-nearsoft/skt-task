@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -24,7 +25,7 @@ public class ProductManagementService {
   @RabbitListener(queues = "${product.queues.list-name}")
   public ProductResponse listProducts(ProductRequest request) {
 
-    ArrayList<Product> products = new ArrayList<>(productRepository.getAllProducts());
+    List<Product> products = new ArrayList<>(productRepository.getAllProducts());
     boolean error = false;
     String errorMessage = "";
     UUID uuid = request.getId();
