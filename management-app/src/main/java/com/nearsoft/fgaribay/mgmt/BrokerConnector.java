@@ -6,7 +6,6 @@ import com.nearsoft.fgaribay.mgmt.model.Product;
 import com.nearsoft.fgaribay.mgmt.model.ProductRequest;
 import com.nearsoft.fgaribay.mgmt.model.ProductResponse;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ public class BrokerConnector {
     private ExchangeProperties exchangeProperties;
     private RoutingKeyProperties routingKeyProperties;
 
-    @Autowired
     public BrokerConnector(RabbitTemplate rabbitTemplate, ExchangeProperties exchangeProperties, RoutingKeyProperties routingKeyProperties) {
         this.rabbitTemplate = rabbitTemplate;
         this.exchangeProperties = exchangeProperties;

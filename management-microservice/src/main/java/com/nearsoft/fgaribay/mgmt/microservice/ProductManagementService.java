@@ -5,7 +5,6 @@ import com.nearsoft.fgaribay.mgmt.model.Product;
 import com.nearsoft.fgaribay.mgmt.model.ProductRequest;
 import com.nearsoft.fgaribay.mgmt.model.ProductResponse;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ public class ProductManagementService {
 
   private ProductRepository productRepository;
 
-  @Autowired
   public ProductManagementService(ProductRepository productRepository) {
     this.productRepository = productRepository;
   }
