@@ -7,7 +7,6 @@ import com.nearsoft.fgaribay.mgmt.model.ProductResponse;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,7 +22,7 @@ public class ProductManagementService {
   @RabbitListener(queues = "${product.queues.list-name}")
   public ProductResponse listProducts(ProductRequest request) {
 
-    List<Product> products = new ArrayList<>(productRepository.getAllProducts());
+    List<Product> products = productRepository.getAllProducts();
     boolean error = false;
     String errorMessage = "";
     UUID uuid = request.getId();

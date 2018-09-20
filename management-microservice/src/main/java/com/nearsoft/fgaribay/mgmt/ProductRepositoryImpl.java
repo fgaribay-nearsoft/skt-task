@@ -1,5 +1,7 @@
 package com.nearsoft.fgaribay.mgmt;
 
+import com.nearsoft.fgaribay.mgmt.model.Product;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
@@ -9,7 +11,7 @@ public class ProductRepositoryImpl implements ProductRepository {
   @PersistenceContext private EntityManager em;
 
   @Override
-  public List getAllProducts() {
+  public List<Product> getAllProducts() {
     StoredProcedureQuery retrieveProductsQuery =
         em.createNamedStoredProcedureQuery("getAllProducts");
     return retrieveProductsQuery.getResultList();
