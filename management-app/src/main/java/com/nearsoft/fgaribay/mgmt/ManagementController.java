@@ -4,7 +4,9 @@ import com.nearsoft.fgaribay.mgmt.model.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,19 +22,19 @@ public class ManagementController {
         this.brokerConnector = brokerConnector;
     }
 
-    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/", "/list"})
     public String viewPersonList(Model model) {
         model.addAttribute("products", brokerConnector.retrieveProductList());
         return "listProducts";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    @GetMapping(value = "/create")
     public String greetingForm(Model model) {
         model.addAttribute("product", new Product());
         return "createProduct";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping(value = "/create")
     public String submit(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
             return "createProduct";
