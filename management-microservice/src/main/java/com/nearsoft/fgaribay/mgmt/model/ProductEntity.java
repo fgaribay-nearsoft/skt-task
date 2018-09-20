@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 
@@ -20,12 +19,9 @@ import javax.persistence.Table;
       name = "createProduct",
       procedureName = "create_product",
       parameters = {
-        @StoredProcedureParameter(name = "p_id", mode = ParameterMode.IN, type = Long.class),
-        @StoredProcedureParameter(name = "p_name", mode = ParameterMode.IN, type = String.class),
-        @StoredProcedureParameter(
-            name = "p_description",
-            mode = ParameterMode.IN,
-            type = String.class)
+        @StoredProcedureParameter(name = "p_id", type = Long.class),
+        @StoredProcedureParameter(name = "p_name", type = String.class),
+        @StoredProcedureParameter(name = "p_description", type = String.class)
       })
 })
 public class ProductEntity extends Product {
