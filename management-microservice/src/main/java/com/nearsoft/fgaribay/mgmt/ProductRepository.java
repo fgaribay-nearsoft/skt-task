@@ -1,7 +1,12 @@
 package com.nearsoft.fgaribay.mgmt;
 
 import com.nearsoft.fgaribay.mgmt.model.ProductEntity;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
 
-public interface ProductRepository
-    extends CrudRepository<ProductEntity, Long>, ProductRepositoryCustom {}
+import java.util.List;
+
+public interface ProductRepository extends Repository<ProductEntity, Long> {
+  List getAllProducts();
+
+  void createProduct(Long id, String name, String description);
+}

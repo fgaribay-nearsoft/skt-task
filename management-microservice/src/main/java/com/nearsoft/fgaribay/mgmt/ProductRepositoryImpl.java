@@ -5,7 +5,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import java.util.List;
 
-public class ProductRepositoryImpl implements ProductRepositoryCustom {
+public class ProductRepositoryImpl implements ProductRepository {
   @PersistenceContext private EntityManager em;
 
   @Override
