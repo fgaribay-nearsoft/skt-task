@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 
@@ -14,6 +15,10 @@ import javax.persistence.Table;
   @NamedStoredProcedureQuery(
       name = "getAllProducts",
       procedureName = "retrieve_products",
+      parameters = {
+        @StoredProcedureParameter(name = "o_error_code", type = Integer.class, mode = ParameterMode.OUT),
+        @StoredProcedureParameter(name = "o_error_msg", type = String.class, mode = ParameterMode.OUT)
+      },
       resultClasses = ProductEntity.class),
   @NamedStoredProcedureQuery(
       name = "createProduct",
@@ -21,7 +26,9 @@ import javax.persistence.Table;
       parameters = {
         @StoredProcedureParameter(name = "p_id", type = Long.class),
         @StoredProcedureParameter(name = "p_name", type = String.class),
-        @StoredProcedureParameter(name = "p_description", type = String.class)
+        @StoredProcedureParameter(name = "p_description", type = String.class),
+        @StoredProcedureParameter(name = "o_error_code", type = Integer.class, mode = ParameterMode.OUT),
+        @StoredProcedureParameter(name = "o_error_msg", type = String.class, mode = ParameterMode.OUT)
       })
 })
 public class ProductEntity extends Product {

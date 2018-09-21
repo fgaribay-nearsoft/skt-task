@@ -1,6 +1,7 @@
 package com.nearsoft.fgaribay.mgmt.microservice;
 
 import com.nearsoft.fgaribay.mgmt.ProductRepository;
+import com.nearsoft.fgaribay.mgmt.exceptions.ProductDataException;
 import com.nearsoft.fgaribay.mgmt.model.Product;
 import com.nearsoft.fgaribay.mgmt.model.ProductRequest;
 import com.nearsoft.fgaribay.mgmt.model.ProductResponse;
@@ -22,10 +23,16 @@ public class ProductManagementService {
   @RabbitListener(queues = "${product.queues.list-name}")
   public ProductResponse listProducts(ProductRequest request) {
 
-    List<Product> products = productRepository.getAllProducts();
     boolean error = false;
+    List<Product> products = null;
     String errorMessage = "";
     UUID uuid = request.getId();
+    try {
+      products = productRepository.getAllProducts();
+    } catch (ProductDataException e) {
+      error = true;
+      errorMessage = e.getMessage();
+    }
 
     return new ProductResponse("list", error, errorMessage, products, uuid);
   }
@@ -34,10 +41,15 @@ public class ProductManagementService {
   public ProductResponse createProduct(ProductRequest request) {
 
     boolean error = false;
+    Product product = request.getProducts().get(0);
     String errorMessage = "";
     UUID uuid = request.getId();
-    Product product = request.getProducts().get(0);
-    productRepository.createProduct(product.getId(), product.getName(), product.getDescription());
+    try {
+      productRepository.createProduct(product.getId(), product.getName(), product.getDescription());
+    } catch (ProductDataException e) {
+      error = true;
+      errorMessage = e.getMessage();
+    }
 
     return new ProductResponse("create", error, errorMessage, request.getProducts(), uuid);
   }
