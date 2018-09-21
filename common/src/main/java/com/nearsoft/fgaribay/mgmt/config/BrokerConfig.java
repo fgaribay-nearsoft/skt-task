@@ -19,7 +19,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:common.properties")
-@ComponentScan("com.nearsoft.fgaribay.mgmt.config")
+@ComponentScan
 public class BrokerConfig {
 
   private QueueProperties queueProperties;
