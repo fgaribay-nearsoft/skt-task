@@ -4,6 +4,8 @@ spring:
     username: ${db-username}
     password: ${db-password}
     driver-class-name: com.mysql.jdbc.Driver
+  profiles:
+    include: common
 
 logging:
   level:

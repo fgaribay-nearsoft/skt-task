@@ -3,6 +3,8 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+  profiles:
+    include: common
 logging:
   level:
     org: INFO
