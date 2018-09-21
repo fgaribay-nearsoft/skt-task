@@ -2,7 +2,7 @@ package com.nearsoft.fgaribay.mgmt;
 
 import com.nearsoft.fgaribay.mgmt.config.properties.ExchangeProperties;
 import com.nearsoft.fgaribay.mgmt.config.properties.RoutingKeyProperties;
-import com.nearsoft.fgaribay.mgmt.exceptions.BrokerConnectionException;
+import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveMicroserviceException;
 import com.nearsoft.fgaribay.mgmt.exceptions.ProductDataException;
 import com.nearsoft.fgaribay.mgmt.model.Product;
 import com.nearsoft.fgaribay.mgmt.model.ProductRequest;
@@ -34,7 +34,7 @@ public class BrokerConnector {
                         exchangeProperties.getListName(), routingKeyProperties.getListName(), request);
 
         if (response == null) {
-            throw new BrokerConnectionException(
+            throw new UnresponsiveMicroserviceException(
                     "Failed to get a response from the broker while attempting to get a product list.");
         } else if (response.isError()) {
             throw new ProductDataException(response.getErrorMessage());
@@ -52,7 +52,7 @@ public class BrokerConnector {
                         exchangeProperties.getCreationName(), routingKeyProperties.getCreationName(), request);
 
         if (response == null) {
-            throw new BrokerConnectionException(
+            throw new UnresponsiveMicroserviceException(
                     "Failed to get a response from the broker while attempting to create the product.");
         } else if (response.isError()) {
             throw new ProductDataException(response.getErrorMessage());

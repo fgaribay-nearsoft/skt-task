@@ -1,6 +1,6 @@
 package com.nearsoft.fgaribay.mgmt;
 
-import com.nearsoft.fgaribay.mgmt.exceptions.BrokerConnectionException;
+import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveMicroserviceException;
 import com.nearsoft.fgaribay.mgmt.exceptions.ProductDataException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +14,8 @@ public class ManagementControllerExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
   }
 
-  @ExceptionHandler(BrokerConnectionException.class)
-  public ResponseEntity handleBrokerConnectionException(ProductDataException e) {
+  @ExceptionHandler(UnresponsiveMicroserviceException.class)
+  public ResponseEntity handleUnresponsiveMicroserviceException(UnresponsiveMicroserviceException e) {
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
   }
 }
