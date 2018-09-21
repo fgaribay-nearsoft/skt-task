@@ -24,10 +24,14 @@
             <td><form:errors path="id" cssClass="error"/></td>
         </tr>
         <tr>
-            <td><form:label path="description">
-                Description</form:label></td>
+            <td><form:label path="description">Description</form:label></td>
             <td><form:input path="description"/></td>
             <td><form:errors path="description" cssClass="error"/></td>
+        </tr>
+        <tr>
+            <td><form:label path="price">Price</form:label></td>
+            <td><form:input path="price"/></td>
+            <td><form:errors path="price" cssClass="error"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>

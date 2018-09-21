@@ -14,13 +14,17 @@
 <div>
     <table border="1">
         <tr>
-            <th>Product Name</th>
-            <th>Product Description</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
         </tr>
         <c:forEach items="${products}" var="product">
             <tr>
+                <td>${product.id}</td>
                 <td>${product.name}</td>
                 <td>${product.description}</td>
+                <td>${product.price}</td>
             </tr>
         </c:forEach>
     </table>

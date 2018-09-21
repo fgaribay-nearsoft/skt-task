@@ -6,6 +6,7 @@ import com.nearsoft.fgaribay.mgmt.model.Product;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ProductRepositoryImpl implements ProductRepository {
@@ -27,11 +28,12 @@ public class ProductRepositoryImpl implements ProductRepository {
   }
 
   @Override
-  public void createProduct(Long id, String name, String description) {
+  public void createProduct(Long id, String name, String description, BigDecimal price) {
     StoredProcedureQuery createProductQuery = em.createNamedStoredProcedureQuery("createProduct");
     createProductQuery.setParameter("p_id", id);
     createProductQuery.setParameter("p_name", name);
     createProductQuery.setParameter("p_description", description);
+    createProductQuery.setParameter("p_price", price);
     Integer errorCode = (Integer) createProductQuery.getOutputParameterValue("o_error_code");
     String errorMessage = (String) createProductQuery.getOutputParameterValue("o_error_msg");
     if (errorCode != 0) {

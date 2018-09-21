@@ -8,6 +8,7 @@ import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
@@ -27,6 +28,7 @@ import javax.persistence.Table;
         @StoredProcedureParameter(name = "p_id", type = Long.class),
         @StoredProcedureParameter(name = "p_name", type = String.class),
         @StoredProcedureParameter(name = "p_description", type = String.class),
+        @StoredProcedureParameter(name = "p_price", type = BigDecimal.class),
         @StoredProcedureParameter(name = "o_error_code", type = Integer.class, mode = ParameterMode.OUT),
         @StoredProcedureParameter(name = "o_error_msg", type = String.class, mode = ParameterMode.OUT)
       })
@@ -43,7 +45,20 @@ public class ProductEntity extends Product {
   @Column(name = "description")
   private String description;
 
+  @Column(name = "price")
+  private BigDecimal price;
+
   public ProductEntity() {}
+
+  @Override
+  public BigDecimal getPrice() {
+    return price;
+  }
+
+  @Override
+  public void setPrice(BigDecimal price) {
+    this.price = price;
+  }
 
   @Override
   public long getId() {

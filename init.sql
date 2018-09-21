@@ -6,6 +6,7 @@ CREATE TABLE products (
   id          INT NOT NULL,
   name        VARCHAR(255),
   description VARCHAR(255),
+  price       DECIMAL(8, 2),
   PRIMARY KEY (id)
 );
 
@@ -27,6 +28,7 @@ CREATE PROCEDURE create_product(
   IN  p_id          INT,
   IN  p_name        VARCHAR(255),
   IN  p_description VARCHAR(255),
+  IN  p_price       DECIMAL(8, 2),
   OUT o_error_code  INT,
   OUT o_error_msg   VARCHAR(255)
 )
@@ -35,6 +37,6 @@ CREATE PROCEDURE create_product(
     DECLARE EXIT HANDLER FOR 1062 SET o_error_code = 2, o_error_msg = 'Duplicate product ID.';
     SET o_error_code = 0;
     SET o_error_msg = '';
-    INSERT INTO products (id, name, description) VALUES (p_id, p_name, p_description);
+    INSERT INTO products (id, name, description, price) VALUES (p_id, p_name, p_description, p_price);
   END $$
 DELIMITER ;

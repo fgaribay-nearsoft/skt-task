@@ -45,7 +45,7 @@ public class ProductManagementService {
     String errorMessage = "";
     UUID uuid = request.getId();
     try {
-      productRepository.createProduct(product.getId(), product.getName(), product.getDescription());
+      productRepository.createProduct(product.getId(), product.getName(), product.getDescription(), product.getPrice());
     } catch (ProductDataException e) {
       error = true;
       errorMessage = e.getMessage();

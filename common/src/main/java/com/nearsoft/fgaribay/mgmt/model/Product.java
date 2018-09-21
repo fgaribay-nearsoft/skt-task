@@ -4,25 +4,33 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class Product implements Serializable {
   @Range(min = 1, max = 65535)
   private long id;
+
+  @Range(min = 1, max = 1000)
+  private BigDecimal price;
 
   @NotEmpty private String name;
   @NotEmpty private String description;
 
   public Product() {}
 
-  public Product(String name, String description) {
-    this.name = name;
-    this.description = description;
-  }
-
-  public Product(long id, String name, String description) {
+  public Product(long id, String name, String description, BigDecimal price) {
     this.id = id;
     this.name = name;
     this.description = description;
+    this.price = price;
+  }
+
+  public BigDecimal getPrice() {
+    return price;
+  }
+
+  public void setPrice(BigDecimal price) {
+    this.price = price;
   }
 
   public long getId() {
