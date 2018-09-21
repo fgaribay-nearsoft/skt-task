@@ -3,18 +3,21 @@ package com.nearsoft.fgaribay.mgmt.model;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class Product implements Serializable {
-  @Range(min = 1, max = 65535)
-  private long id;
+  @NotNull(message = "A product ID is required.")
+  private Long id;
 
-  @Range(min = 1, max = 1000)
+  @NotEmpty(message = "A product name is required.")
+  private String name;
+
+  @Range(min = 1, max = 1000, message = "The price must be between 1 and 1000.")
   private BigDecimal price;
 
-  @NotEmpty private String name;
-  @NotEmpty private String description;
+  private String description;
 
   public Product() {}
 
@@ -33,11 +36,11 @@ public class Product implements Serializable {
     this.price = price;
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
