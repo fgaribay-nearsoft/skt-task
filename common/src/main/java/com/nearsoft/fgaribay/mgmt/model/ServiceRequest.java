@@ -1,25 +1,24 @@
 package com.nearsoft.fgaribay.mgmt.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
-public class ProductRequest implements Serializable {
+public class ServiceRequest<T> implements Serializable {
   private UUID id;
   private String operation;
-  private List<Product> products;
+  private T data;
 
-  public ProductRequest(UUID id, String operation, List<Product> products) {
+  public ServiceRequest(UUID id, String operation, T data) {
     this.id = id;
     this.operation = operation;
-    this.products = products;
+    this.data = data;
   }
 
-  public ProductRequest() {}
+  public ServiceRequest() {}
 
-  public ProductRequest(String operation, List<Product> products) {
+  public ServiceRequest(String operation, T data) {
     this.operation = operation;
-    this.products = products;
+    this.data = data;
   }
 
   public String getOperation() {
@@ -38,11 +37,11 @@ public class ProductRequest implements Serializable {
     this.id = id;
   }
 
-  public List<Product> getProducts() {
-    return products;
+  public T getData() {
+    return data;
   }
 
-  public void setProducts(List<Product> products) {
-    this.products = products;
+  public void setData(T data) {
+    this.data = data;
   }
 }

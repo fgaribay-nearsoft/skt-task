@@ -5,12 +5,11 @@ import com.nearsoft.fgaribay.mgmt.config.properties.RoutingKeyProperties;
 import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveMicroserviceException;
 import com.nearsoft.fgaribay.mgmt.exceptions.ProductDataException;
 import com.nearsoft.fgaribay.mgmt.model.Product;
-import com.nearsoft.fgaribay.mgmt.model.ProductRequest;
-import com.nearsoft.fgaribay.mgmt.model.ProductResponse;
+import com.nearsoft.fgaribay.mgmt.model.ServiceRequest;
+import com.nearsoft.fgaribay.mgmt.model.ServiceResponse;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -28,9 +27,9 @@ public class BrokerConnector {
     }
 
     public List<Product> retrieveProductList() {
-        ProductRequest request = new ProductRequest("list", null);
-        ProductResponse response =
-                (ProductResponse) rabbitTemplate.convertSendAndReceive(
+        ServiceRequest request = new ServiceRequest<>("list", null);
+        ServiceResponse<List<Product>> response =
+                (ServiceResponse) rabbitTemplate.convertSendAndReceive(
                         exchangeProperties.getListName(), routingKeyProperties.getListName(), request);
 
         if (response == null) {
@@ -40,15 +39,13 @@ public class BrokerConnector {
             throw new ProductDataException(response.getErrorMessage());
         }
 
-        return response.getProducts();
+        return response.getData();
     }
 
     public void createProduct(Product product) {
-        List<Product> products = new ArrayList<>();
-        products.add(product);
-        ProductRequest request = new ProductRequest("create", products);
-        ProductResponse response =
-                (ProductResponse) rabbitTemplate.convertSendAndReceive(
+        ServiceRequest<Product> request = new ServiceRequest<>("create", product);
+        ServiceResponse response =
+                (ServiceResponse) rabbitTemplate.convertSendAndReceive(
                         exchangeProperties.getCreationName(), routingKeyProperties.getCreationName(), request);
 
         if (response == null) {
