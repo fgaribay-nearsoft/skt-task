@@ -28,4 +28,12 @@ public class ServiceRequest<T> implements Serializable {
   public void setData(T data) {
     this.data = data;
   }
+
+  @Override
+  public String toString() {
+    return "ServiceRequest{" +
+            "operation='" + operation + '\'' +
+            ", data=" + data +
+            '}';
+  }
 }
