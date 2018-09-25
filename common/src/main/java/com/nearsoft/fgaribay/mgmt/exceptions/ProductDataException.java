@@ -15,5 +15,4 @@ public class ProductDataException extends SQLDataException {
   public ProductDataException(Throwable cause) {
     super(cause);
   }
-
 }
