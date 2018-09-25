@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: temprabbit
+      RABBITMQ_DEFAULT_PASS: temprabbit
+    ports:
+      - "5671-5672:5671-5672"
+      - "15671-15672:15671-15672"
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: tempsqlpass
+      MYSQL_DATABASE: skt
+    ports:
+      - 3306:3306
+    volumes:
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
