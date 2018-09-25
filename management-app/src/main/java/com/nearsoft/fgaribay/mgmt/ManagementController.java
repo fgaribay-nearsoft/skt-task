@@ -1,6 +1,11 @@
 package com.nearsoft.fgaribay.mgmt;
 
+import com.nearsoft.fgaribay.mgmt.exceptions.ProductDataException;
+import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveBrokerException;
+import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveMicroserviceException;
 import com.nearsoft.fgaribay.mgmt.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,30 +20,43 @@ import javax.validation.Valid;
 @RequestMapping(value = "/products")
 public class ManagementController {
 
-    private BrokerConnector brokerConnector;
+  private static final Logger LOGGER = LoggerFactory.getLogger(ManagementController.class);
 
-    public ManagementController(BrokerConnector brokerConnector) {
-        this.brokerConnector = brokerConnector;
+  private BrokerConnector brokerConnector;
+
+  public ManagementController(BrokerConnector brokerConnector) {
+    this.brokerConnector = brokerConnector;
+  }
+
+  @GetMapping(value = "/create")
+  public String greetingForm(Model model) {
+    LOGGER.debug("Received GET request for the product creation form.");
+
+    model.addAttribute("product", new Product());
+    return "createProduct";
+  }
+
+  @PostMapping(value = "/create")
+  public String submit(
+      @Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model)
+      throws UnresponsiveMicroserviceException, UnresponsiveBrokerException, ProductDataException {
+    LOGGER.debug("Received POST request for the product creation form.");
+
+    if (bindingResult.hasErrors()) {
+      LOGGER.warn("A POST request for creating a product had invalid data.");
+      return "createProduct";
     }
 
-    @GetMapping(value = {"/", "/list"})
-    public String viewPersonList(Model model) {
-        model.addAttribute("products", brokerConnector.retrieveProductList());
-        return "listProducts";
-    }
+    brokerConnector.createProduct(product);
+    return viewPersonList(model);
+  }
 
-    @GetMapping(value = "/create")
-    public String greetingForm(Model model) {
-        model.addAttribute("product", new Product());
-        return "createProduct";
-    }
+  @GetMapping(value = {"/", "/list"})
+  public String viewPersonList(Model model)
+      throws UnresponsiveMicroserviceException, ProductDataException, UnresponsiveBrokerException {
+    LOGGER.debug("Received GET request for the product list.");
 
-    @PostMapping(value = "/create")
-    public String submit(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()) {
-            return "createProduct";
-        }
-        brokerConnector.createProduct(product);
-        return viewPersonList(model);
-    }
+    model.addAttribute("products", brokerConnector.retrieveProductList());
+    return "listProducts";
+  }
 }

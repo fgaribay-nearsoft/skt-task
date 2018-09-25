@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 @Import(BrokerConfig.class)
 public class ManagementApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ManagementApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(ManagementApplication.class, args);
+  }
 }
