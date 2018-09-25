@@ -9,7 +9,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class ProductManagementService {
@@ -26,7 +25,6 @@ public class ProductManagementService {
     boolean error = false;
     List<Product> products = null;
     String errorMessage = "";
-    UUID uuid = request.getId();
     try {
       products = productRepository.getAllProducts();
     } catch (ProductDataException e) {
@@ -34,16 +32,14 @@ public class ProductManagementService {
       errorMessage = e.getMessage();
     }
 
-    return new ServiceResponse<>("list", error, errorMessage, products, uuid);
+    return new ServiceResponse<>("list", error, errorMessage, products);
   }
 
   @RabbitListener(queues = "${product.queues.creation-name}")
   public ServiceResponse createProduct(ServiceRequest<Product> request) {
-
     boolean error = false;
     Product product = request.getData();
     String errorMessage = "";
-    UUID uuid = request.getId();
     try {
       productRepository.createProduct(product);
     } catch (ProductDataException e) {
@@ -51,6 +47,6 @@ public class ProductManagementService {
       errorMessage = e.getMessage();
     }
 
-    return new ServiceResponse<>("create", error, errorMessage, request.getData(), uuid);
+    return new ServiceResponse<>("create", error, errorMessage, request.getData());
   }
 }

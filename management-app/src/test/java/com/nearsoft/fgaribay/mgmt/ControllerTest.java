@@ -58,7 +58,7 @@ public class ControllerTest {
   @Test(expected = ProductDataException.class)
   public void exceptionOnCreationWithDuplicateProductId() {
     ServiceResponse response =
-        new ServiceResponse("create", true, "Duplicate product.", null, null);
+        new ServiceResponse("create", true, "Duplicate product.", null);
     Mockito.when(
             rabbitTemplate.convertSendAndReceive(
                 Mockito.anyString(), Mockito.anyString(), Mockito.any(ServiceRequest.class)))
@@ -75,7 +75,7 @@ public class ControllerTest {
     List<Product> productList = new ArrayList<>();
     productList.add(product);
 
-    ServiceResponse response = new ServiceResponse("create", false, null, productList, null);
+    ServiceResponse response = new ServiceResponse("create", false, null, productList);
     Mockito.when(
             rabbitTemplate.convertSendAndReceive(
                 Mockito.anyString(), Mockito.anyString(), Mockito.any(ServiceRequest.class)))

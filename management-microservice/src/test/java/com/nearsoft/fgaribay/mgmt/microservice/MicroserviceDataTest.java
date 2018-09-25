@@ -48,7 +48,6 @@ public class MicroserviceDataTest {
     ServiceResponse<Product> response = service.createProduct(request);
     Product receivedProduct = response.getData();
     Assert.assertEquals("Mouse", receivedProduct.getName());
-    Assert.assertEquals(request.getId(), response.getId());
     Assert.assertFalse(response.getErrorMessage(), response.isError());
   }
 
@@ -58,7 +57,6 @@ public class MicroserviceDataTest {
 
     ServiceRequest request = new ServiceRequest<>("create", product);
     ServiceResponse response = service.createProduct(request);
-    Assert.assertEquals(request.getId(), response.getId());
     Assert.assertTrue(response.isError());
   }
 
