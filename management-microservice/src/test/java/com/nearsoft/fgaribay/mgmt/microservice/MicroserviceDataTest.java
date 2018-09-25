@@ -15,7 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -43,10 +42,9 @@ public class MicroserviceDataTest {
 
   @Test
   public void testCreateProductSuccessful() {
-    List<Product> products = new ArrayList<>();
-    products.add(new Product(10L, "Mouse", "A Mouse", new BigDecimal(10)));
+    Product product = new Product(10L, "Mouse", "A Mouse", new BigDecimal(10));
 
-    ServiceRequest request = new ServiceRequest<>("create", products);
+    ServiceRequest request = new ServiceRequest<>("create", product);
     ServiceResponse<Product> response = service.createProduct(request);
     Product receivedProduct = response.getData();
     Assert.assertEquals("Mouse", receivedProduct.getName());
@@ -56,11 +54,9 @@ public class MicroserviceDataTest {
 
   @Test
   public void testCreateProductFailed() {
-    List<Product> products = new ArrayList<>();
     Product product = new Product(10L, "Mouse", "A Mouse", new BigDecimal(100000));
-    products.add(product);
 
-    ServiceRequest request = new ServiceRequest<>("create", products);
+    ServiceRequest request = new ServiceRequest<>("create", product);
     ServiceResponse response = service.createProduct(request);
     Assert.assertEquals(request.getId(), response.getId());
     Assert.assertTrue(response.isError());

@@ -63,11 +63,10 @@ public class MicroserviceTest {
 
   @Test
   public void testCreateProductSuccessful() {
-    List<Product> products = new ArrayList<>();
-    products.add(new Product(10L, "Mouse", "A Mouse", new BigDecimal(10)));
-    Mockito.when(productRepository.getAllProducts()).thenReturn(products);
+    Product product = new Product(10L, "Mouse", "A Mouse", new BigDecimal(10));
+    Mockito.doNothing().when(productRepository);
 
-    ServiceRequest request = new ServiceRequest<>("create", products);
+    ServiceRequest request = new ServiceRequest<>("create", product);
     ServiceResponse<Product> response = service.createProduct(request);
     Product receivedProduct = response.getData();
     Assert.assertEquals("Mouse", receivedProduct.getName());
