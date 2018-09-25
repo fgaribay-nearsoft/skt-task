@@ -1,0 +1,21 @@
+spring:
+  rabbitmq:
+    host: ${test-rabbit-host:localhost}
+    port: ${test-rabbit-port:5672}
+    password: ${test-rabbit-password}
+    username: ${test-rabbit-username}
+
+product:
+  queues:
+    creation-name: product-create
+    list-name: product-list
+  exchanges:
+    creation-name: product-create
+    list-name: product-list
+  routing-keys:
+    creation-name: product-create
+    list-name: product-list
+
+logging:
+  level:
+    org: INFO
