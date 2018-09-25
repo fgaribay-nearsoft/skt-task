@@ -21,6 +21,8 @@
         <java.version>1.8</java.version>
         <spring.boot.version>1.5.7.RELEASE</spring.boot.version>
         <mvn.war.version>2.4</mvn.war.version>
+        <maven.surefire.plugin.version>2.12.4</maven.surefire.plugin.version>
+        <maven.failsafe.plugin.version>2.22.0</maven.failsafe.plugin.version>
     </properties>
 
     <modules>
