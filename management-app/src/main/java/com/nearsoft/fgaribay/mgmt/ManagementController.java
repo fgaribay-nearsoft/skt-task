@@ -43,7 +43,7 @@ public class ManagementController {
     LOGGER.debug("Received POST request for the product creation form.");
 
     if (bindingResult.hasErrors()) {
-      LOGGER.error("A POST request for creating a product had invalid data.");
+      LOGGER.warn("A POST request for creating a product had invalid data.");
       return "createProduct";
     }
 
