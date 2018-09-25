@@ -2,11 +2,13 @@ package com.nearsoft.fgaribay.mgmt;
 
 import com.nearsoft.fgaribay.mgmt.config.properties.ExchangeProperties;
 import com.nearsoft.fgaribay.mgmt.config.properties.RoutingKeyProperties;
+import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveBrokerException;
 import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveMicroserviceException;
 import com.nearsoft.fgaribay.mgmt.exceptions.ProductDataException;
 import com.nearsoft.fgaribay.mgmt.model.Product;
 import com.nearsoft.fgaribay.mgmt.model.ServiceRequest;
 import com.nearsoft.fgaribay.mgmt.model.ServiceResponse;
+import org.springframework.amqp.AmqpConnectException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
@@ -28,9 +30,15 @@ public class BrokerConnector {
 
     public List<Product> retrieveProductList() {
         ServiceRequest request = new ServiceRequest<>("list", null);
-        ServiceResponse<List<Product>> response =
-                (ServiceResponse) rabbitTemplate.convertSendAndReceive(
-                        exchangeProperties.getListName(), routingKeyProperties.getListName(), request);
+        ServiceResponse<List<Product>> response = null;
+
+        try {
+            response =
+                    (ServiceResponse<List<Product>>) rabbitTemplate.convertSendAndReceive(
+                            exchangeProperties.getListName(), routingKeyProperties.getListName(), request);
+        } catch (AmqpConnectException e) {
+            throw new UnresponsiveBrokerException("Failed to connect with the AMQP broker.");
+        }
 
         if (response == null) {
             throw new UnresponsiveMicroserviceException(
@@ -44,9 +52,15 @@ public class BrokerConnector {
 
     public void createProduct(Product product) {
         ServiceRequest<Product> request = new ServiceRequest<>("create", product);
-        ServiceResponse response =
-                (ServiceResponse) rabbitTemplate.convertSendAndReceive(
-                        exchangeProperties.getCreationName(), routingKeyProperties.getCreationName(), request);
+        ServiceResponse<Product> response = null;
+
+        try {
+            response =
+                    (ServiceResponse<Product>) rabbitTemplate.convertSendAndReceive(
+                            exchangeProperties.getCreationName(), routingKeyProperties.getCreationName(), request);
+        } catch (AmqpConnectException e) {
+            throw new UnresponsiveBrokerException("Failed to connect with the AMQP broker.");
+        }
 
         if (response == null) {
             throw new UnresponsiveMicroserviceException(
