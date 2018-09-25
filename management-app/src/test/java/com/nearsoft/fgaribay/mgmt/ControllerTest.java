@@ -1,6 +1,8 @@
 package com.nearsoft.fgaribay.mgmt;
 
 import com.nearsoft.fgaribay.mgmt.exceptions.ProductDataException;
+import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveBrokerException;
+import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveMicroserviceException;
 import com.nearsoft.fgaribay.mgmt.model.Product;
 import com.nearsoft.fgaribay.mgmt.model.ServiceRequest;
 import com.nearsoft.fgaribay.mgmt.model.ServiceResponse;
@@ -56,9 +58,9 @@ public class ControllerTest {
   }
 
   @Test(expected = ProductDataException.class)
-  public void exceptionOnCreationWithDuplicateProductId() {
-    ServiceResponse response =
-        new ServiceResponse("create", true, "Duplicate product.", null);
+  public void exceptionOnCreationWithDuplicateProductId()
+      throws UnresponsiveMicroserviceException, UnresponsiveBrokerException, ProductDataException {
+    ServiceResponse response = new ServiceResponse("create", true, "Duplicate product.", null);
     Mockito.when(
             rabbitTemplate.convertSendAndReceive(
                 Mockito.anyString(), Mockito.anyString(), Mockito.any(ServiceRequest.class)))

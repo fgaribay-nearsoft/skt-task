@@ -32,7 +32,8 @@ public class BrokerConnector {
         this.routingKeyProperties = routingKeyProperties;
     }
 
-    public List<Product> retrieveProductList() {
+    public List<Product> retrieveProductList()
+            throws UnresponsiveMicroserviceException, ProductDataException, UnresponsiveBrokerException {
         LOGGER.debug("Sending request to AMQP broker for a product list.");
 
         ServiceRequest request = new ServiceRequest<>("list", null);
@@ -59,7 +60,8 @@ public class BrokerConnector {
         return response.getData();
     }
 
-    public void createProduct(Product product) {
+    public void createProduct(Product product)
+            throws UnresponsiveBrokerException, UnresponsiveMicroserviceException, ProductDataException {
         LOGGER.debug("Sending request to AMQP broker to create a product: ", product);
 
         ServiceRequest<Product> request = new ServiceRequest<>("create", product);

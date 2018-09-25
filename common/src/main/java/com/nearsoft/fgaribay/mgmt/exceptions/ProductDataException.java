@@ -1,7 +1,8 @@
 package com.nearsoft.fgaribay.mgmt.exceptions;
 
-public class ProductDataException extends RuntimeException {
-  public ProductDataException() {}
+import java.sql.SQLDataException;
+
+public class ProductDataException extends SQLDataException {
 
   public ProductDataException(String message) {
     super(message);
@@ -15,8 +16,4 @@ public class ProductDataException extends RuntimeException {
     super(cause);
   }
 
-  public ProductDataException(
-      String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-    super(message, cause, enableSuppression, writableStackTrace);
-  }
 }

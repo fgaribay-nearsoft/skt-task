@@ -25,7 +25,7 @@ public class ProductRepositoryImpl implements ProductRepository {
   @PersistenceContext private EntityManager em;
 
   @Override
-  public List<Product> getAllProducts() {
+  public List<Product> getAllProducts() throws ProductDataException {
     LOGGER.debug("Calling database stored procedure to retrieve a all the products.");
 
     StoredProcedureQuery retrieveProductsQuery =
@@ -42,7 +42,7 @@ public class ProductRepositoryImpl implements ProductRepository {
   }
 
   @Override
-  public void createProduct(@Valid Product product) {
+  public void createProduct(@Valid Product product) throws ProductDataException {
     LOGGER.debug("Calling database stored procedure to create a product: {}", product);
 
     Map<String, String> map = new HashMap<>();

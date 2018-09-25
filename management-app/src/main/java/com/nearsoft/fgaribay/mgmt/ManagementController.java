@@ -1,5 +1,8 @@
 package com.nearsoft.fgaribay.mgmt;
 
+import com.nearsoft.fgaribay.mgmt.exceptions.ProductDataException;
+import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveBrokerException;
+import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveMicroserviceException;
 import com.nearsoft.fgaribay.mgmt.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +29,8 @@ public class ManagementController {
     }
 
     @GetMapping(value = {"/", "/list"})
-    public String viewPersonList(Model model) {
+    public String viewPersonList(Model model)
+            throws UnresponsiveMicroserviceException, ProductDataException, UnresponsiveBrokerException {
         LOGGER.debug("Received GET request for the product list.");
 
         model.addAttribute("products", brokerConnector.retrieveProductList());
@@ -42,7 +46,8 @@ public class ManagementController {
     }
 
     @PostMapping(value = "/create")
-    public String submit(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model) {
+    public String submit(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model)
+            throws UnresponsiveMicroserviceException, UnresponsiveBrokerException, ProductDataException {
         LOGGER.debug("Received POST request for the product creation form.");
 
         if (bindingResult.hasErrors()) {

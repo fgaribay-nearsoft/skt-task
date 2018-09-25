@@ -41,7 +41,7 @@ public class MicroserviceTest {
   public void contextLoads() {}
 
   @Test
-  public void testListProductsSuccessful() {
+  public void testListProductsSuccessful() throws ProductDataException {
     List<Product> products = new ArrayList<>();
     products.add(new Product(10L, "Mouse", "A Mouse", new BigDecimal(10)));
     Mockito.when(productRepository.getAllProducts()).thenReturn(products);
@@ -53,7 +53,7 @@ public class MicroserviceTest {
   }
 
   @Test
-  public void testListProductsFailed() {
+  public void testListProductsFailed() throws ProductDataException {
     Mockito.when(productRepository.getAllProducts()).thenThrow(ProductDataException.class);
 
     ServiceRequest request = new ServiceRequest<>("list", null);
@@ -74,7 +74,7 @@ public class MicroserviceTest {
   }
 
   @Test
-  public void testCreateProductFailed() {
+  public void testCreateProductFailed() throws ProductDataException {
     Product product = new Product(10L, "Mouse", "A Mouse", new BigDecimal(100000));
     Mockito.doThrow(ProductDataException.class)
         .when(productRepository)

@@ -27,20 +27,20 @@ public class ProductRespositoryImplTest {
   public void contextLoads() {}
 
   @Test
-  public void testCreateValidProduct() {
+  public void testCreateValidProduct() throws ProductDataException {
     Product product = new Product(10L, "Mouse", "A mouse", new BigDecimal(10));
     productRepository.createProduct(product);
   }
 
   @Test(expected = ProductDataException.class)
-  public void testCreateProductDuplicateId() {
+  public void testCreateProductDuplicateId() throws ProductDataException {
     Product product = new Product(11L, "Mouse", "A mouse", new BigDecimal(10));
     productRepository.createProduct(product);
     productRepository.createProduct(product);
   }
 
   @Test(expected = ProductDataException.class)
-  public void testCreateProductPriceTooHigh() {
+  public void testCreateProductPriceTooHigh() throws ProductDataException {
     Product product = new Product(9L, "Mouse", "A mouse", new BigDecimal(10000));
     productRepository.createProduct(product);
   }

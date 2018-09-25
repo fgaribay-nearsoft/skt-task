@@ -1,6 +1,7 @@
 package com.nearsoft.fgaribay.mgmt;
 
 import com.nearsoft.fgaribay.mgmt.exceptions.ProductDataException;
+import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveBrokerException;
 import com.nearsoft.fgaribay.mgmt.exceptions.UnresponsiveMicroserviceException;
 import com.nearsoft.fgaribay.mgmt.model.Product;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -50,19 +51,22 @@ public class ManagementApplicationIT {
 
   @Test(expected = UnresponsiveMicroserviceException.class)
   @Category(UnresponsiveMicroserviceTest.class)
-  public void exceptionOnProductRetrievalWithMicroserviceDown() {
+  public void exceptionOnProductRetrievalWithMicroserviceDown()
+      throws UnresponsiveMicroserviceException, ProductDataException, UnresponsiveBrokerException {
     connector.retrieveProductList();
   }
 
   @Test(expected = UnresponsiveMicroserviceException.class)
   @Category(UnresponsiveMicroserviceTest.class)
-  public void exceptionOnProductCreationWithMicroserviceDown() {
+  public void exceptionOnProductCreationWithMicroserviceDown()
+      throws UnresponsiveMicroserviceException, UnresponsiveBrokerException, ProductDataException {
     Product product = new Product(1, "Mouse", "A Mouse", new BigDecimal(10));
     connector.createProduct(product);
   }
 
   @Test(expected = ProductDataException.class)
-  public void exceptionOnCreationWithDuplicateProductId() {
+  public void exceptionOnCreationWithDuplicateProductId()
+      throws UnresponsiveMicroserviceException, UnresponsiveBrokerException, ProductDataException {
     Product product = new Product(1, "Mouse", "A Mouse", new BigDecimal(10));
     connector.createProduct(product);
     connector.createProduct(product);
